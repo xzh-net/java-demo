@@ -1,4 +1,4 @@
-## Maven项目部署到Nexus3仓库
+# Maven项目部署到Nexus3仓库
 
 ## 配置Maven的settings.xml文件
 
