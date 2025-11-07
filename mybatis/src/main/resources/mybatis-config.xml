@@ -8,6 +8,7 @@
 		<plugin interceptor="net.xzh.interceptor.OptimisticLocker">
 			<property name="versionColumn" value="version" /> <!-- 数据库的列名 -->
 			<property name="versionField" value="version" /> <!-- java字段名 -->
+			<property name="defaultLocker" value="false"/> <!-- 添加这个配置 -->
 		</plugin>
 		<plugin interceptor="net.xzh.interceptor.FieldEncryptInterceptor" />
 		<plugin interceptor="net.xzh.interceptor.SqlMonitorPlugin" />

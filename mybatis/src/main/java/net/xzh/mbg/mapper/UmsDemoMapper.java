@@ -23,7 +23,7 @@ public interface UmsDemoMapper {
 
 	List<UmsDemo> selectByExample(UmsDemoExample example);
 
-//	@SensitiveConverter(value = SensitiveType.SELECT)
+	@SensitiveConverter(value = SensitiveType.SELECT)
 	UmsDemo selectByPrimaryKey(Long id);
 
 	int updateByExampleSelective(@Param("record") UmsDemo record, @Param("example") UmsDemoExample example);
@@ -34,6 +34,6 @@ public interface UmsDemoMapper {
 	int updateByPrimaryKeySelective(UmsDemo record);
 
 	@VersionLocker()
-	@SensitiveConverter(value = SensitiveType.UPDATE)
+//	@SensitiveConverter(value = SensitiveType.UPDATE)
 	int updateByPrimaryKey(UmsDemo record);
 }

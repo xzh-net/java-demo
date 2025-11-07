@@ -8,25 +8,22 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import net.xzh.mbg.mapper.UmsAdminAnnotationMapper;
+import net.xzh.mbg.mapper.UmsAdminMapper;
 import net.xzh.mbg.mapper.UmsDemoMapper;
+import net.xzh.mbg.model.UmsAdmin;
 import net.xzh.mbg.model.UmsDemo;
 import net.xzh.mbg.model.UmsDemoExample;
 import net.xzh.mbg.model.UmsDemoExample.Criteria;
 
-/*
- CREATE TABLE `ums_demo`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
-  `password` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
-  `version` int(255) NOT NULL DEFAULT 1 COMMENT '版本号',
-  PRIMARY KEY (`id`) USING BTREE
-)
-*/
+
 public class MybatisAppliaction {
 
-	private static Logger log = Logger.getLogger(MybatisAppliaction.class);
+	
+	 private static final Logger logger = LogManager.getLogger(MybatisAppliaction.class);
 
 	public static void main(String[] args) throws IOException {
 		String resource = "mybatis-config.xml";
@@ -35,30 +32,43 @@ public class MybatisAppliaction {
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		// 解析获取具体使用哪个执行器
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-//		1 namespace xml 调用
-//		UmsAdmin umsAdmin = sqlSession.selectOne("com.xuzhihao.mbg.mapper.UmsAdminMapper.selectByPrimaryKey", 1L);
+		
+		//namespace调用
+		UmsAdmin umsAdmin = sqlSession.selectOne("net.xzh.mbg.mapper.UmsAdminMapper.selectByPrimaryKey", 1L);
+		logger.info("namespace调用，{}",umsAdmin);
+		System.out.println("------------------------------------------");
+		
+		//Mapper调用
+		UmsAdminMapper umsAdminMapper = sqlSession.getMapper(UmsAdminMapper.class);
+		UmsAdmin umsAdmin2 = umsAdminMapper.selectByPrimaryKey(1L);
+		logger.info("Mapper调用，{}",umsAdmin2);
+		System.out.println("------------------------------------------");
 
-//		2 Mapper 调用
-//		UmsAdminMapper umsAdminMapper = sqlSession.getMapper(UmsAdminMapper.class);
-//		umsAdminMapper.selectByPrimaryKey(3L);
-
-//		3 Annotation注解调用
-//		UmsAdminAnnotationMapper umsAdminAnnotationMapper = sqlSession.getMapper(UmsAdminAnnotationMapper.class);
-//		System.out.println(umsAdminAnnotationMapper.selectByPrimaryKey(4L));
-
+		//Annotation调用
+		UmsAdminAnnotationMapper umsAdminAnnotationMapper = sqlSession.getMapper(UmsAdminAnnotationMapper.class);
+		UmsAdmin umsAdmin3 = umsAdminAnnotationMapper.selectByPrimaryKey(1L);
+		logger.info("Annotation调用，{}",umsAdmin3);
+		System.out.println("------------------------------------------");
+		
+		//Example调用示例
 		UmsDemoMapper umsDemoMapper = sqlSession.getMapper(UmsDemoMapper.class);
 		UmsDemoExample example = new UmsDemoExample();
-//		4 Example用法
 		Criteria criteria = example.createCriteria();
 		criteria.andIdLessThan(2000L);
-		List<UmsDemo> selectByExample = umsDemoMapper.selectByExample(example);
-		System.out.println(selectByExample);
-
-//		5 Ex
-//		UmsDemo umsDemo = umsDemoMapper.selectByPrimaryKey(955L);
-//		System.out.println(umsDemo);
-//		int rtn = umsDemoMapper.updateByPrimaryKey(umsDemo);
-//		log.info("更新结果--->" + rtn);
+		List<UmsDemo> demos = umsDemoMapper.selectByExample(example);
+		logger.info("Example调用示例，{}",demos);
+		System.out.println("------------------------------------------");
+		
+		//乐观锁
+		UmsDemo umsDemo = umsDemoMapper.selectByPrimaryKey(1L);
+		umsDemo.setUsername("zhangsan1");
+		int updateByPrimaryKey = umsDemoMapper.updateByPrimaryKey(umsDemo);
+		logger.info("有锁更新结果--->" + updateByPrimaryKey);
+		//无锁
+		UmsDemo umsDemo2 = umsDemoMapper.selectByPrimaryKey(2L);
+		umsDemo2.setUsername("test");
+		int updateByPrimaryKeySelective = umsDemoMapper.updateByPrimaryKeySelective(umsDemo2);
+		logger.info("无锁更新结果--->" + updateByPrimaryKeySelective);
 
 		sqlSession.commit();
 		sqlSession.flushStatements();

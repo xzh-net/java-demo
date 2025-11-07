@@ -21,7 +21,8 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * 慢sql分析插件
@@ -37,7 +38,8 @@ import org.apache.log4j.Logger;
 		@Signature(type = Executor.class, method = "update", args = { MappedStatement.class, Object.class }) })
 public class SqlMonitorPlugin implements Interceptor {
 
-	private static Logger log = Logger.getLogger(SqlMonitorPlugin.class);
+	
+	private static final Logger logger = LogManager.getLogger(SqlMonitorPlugin.class);
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -56,7 +58,7 @@ public class SqlMonitorPlugin implements Interceptor {
 		} finally {
 			long timing = System.currentTimeMillis() - startTime;
 			String sql = getSql(boundSql, parameter, configuration);
-			log.info("执行sql耗时：" + timing + "ms -id：" + sqlId + " -sql:" + sql);
+			logger.info("执行sql耗时：" + timing + "ms -id：" + sqlId + " -sql:" + sql);
 		}
 		return result;
 	}

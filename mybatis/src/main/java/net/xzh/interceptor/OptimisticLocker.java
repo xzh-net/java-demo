@@ -22,7 +22,8 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
@@ -49,7 +50,8 @@ import net.xzh.interceptor.locker.VersionLockerCache;
 		@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class, Integer.class }) })
 public class OptimisticLocker implements Interceptor {
 
-	private static Logger log = Logger.getLogger(OptimisticLocker.class);
+	
+	private static final Logger logger = LogManager.getLogger(OptimisticLocker.class);
 
 	private static VersionLocker trueLocker;
 	private static VersionLocker falseLocker;
@@ -109,12 +111,12 @@ public class OptimisticLocker implements Interceptor {
 		}
 		String originalSql = boundSql.getSql();
 
-		log.info("==> originalSql: " + originalSql);
+		logger.debug("==> 加锁前Sql: " + originalSql);
 
 		originalSql = addVersionToSql(originalSql, versionColumn, originalVersion);
 		metaObject.setValue("delegate.boundSql.sql", originalSql);
 
-		log.info("==> originalSql after add version: " + originalSql);
+		logger.debug("==> 加锁后Sql after add version: " + originalSql);
 
 		return invocation.proceed();
 	}
@@ -126,9 +128,9 @@ public class OptimisticLocker implements Interceptor {
 				return originalSql;
 			}
 			Update update = (Update) stmt;
-			if (!contains(update, versionColumnName)) {
-				buildVersionExpression(update, versionColumnName);
-			}
+			
+			buildVersionExpression(update, versionColumnName);
+			
 			Expression where = update.getWhere();
 			if (where != null) {
 				AndExpression and = new AndExpression(where, buildVersionEquals(versionColumnName, originalVersion));
@@ -232,7 +234,7 @@ public class OptimisticLocker implements Interceptor {
 			}
 			versionLocker = m.getAnnotation(VersionLocker.class);
 			if (null == versionLocker) {
-				versionLocker = trueLocker;
+				versionLocker = falseLocker;
 			}
 			if (!versionLockerCache.containMethodSignature(vm)) {
 				versionLockerCache.cacheMethod(vm, versionLocker);

@@ -26,13 +26,13 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ReflectionUtils;
 
-import cn.hutool.core.util.ObjectUtil;
 import net.xzh.interceptor.encrpyt.SensitiveConverter;
 import net.xzh.interceptor.encrpyt.SensitiveFormat;
 import net.xzh.interceptor.encrpyt.SensitiveType;
@@ -51,7 +51,8 @@ import net.xzh.interceptor.encrpyt.SensitiveType;
 		@Signature(type = Executor.class, method = "update", args = { MappedStatement.class, Object.class }) })
 public class FieldEncryptInterceptor implements Interceptor {
 
-	private static Logger log = Logger.getLogger(FieldEncryptInterceptor.class);
+	 private static final Logger logger = LogManager.getLogger(FieldEncryptInterceptor.class);
+
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -66,12 +67,12 @@ public class FieldEncryptInterceptor implements Interceptor {
 			if (SqlCommandType.UPDATE.equals(sqlCommandType)
 					&& SensitiveType.UPDATE.equals(sensitiveConverter.value())) {
 				updateParameters(sensitiveConverter, ms, parameter);
-				log.info("数据入库敏感词过滤");
+				logger.debug("数据入库敏感词过滤");
 			}
 			Object object = invocation.proceed();
 			if (SqlCommandType.SELECT.equals(sqlCommandType)
 					&& SensitiveType.SELECT.equals(sensitiveConverter.value())) {
-				log.info("数据显示脱敏");
+				logger.debug("数据显示脱敏");
 				decrypt(object);
 			}
 			return object;
@@ -146,14 +147,14 @@ public class FieldEncryptInterceptor implements Interceptor {
 		ConversionService sharedInstance = DefaultConversionService.getSharedInstance();// 待整合到@Bean
 
 		list.forEach(obj -> {
-			getFields(obj).stream().filter(annotationFields::contains).forEach(field -> {
-				Object value = this.getField(field, obj);
-				String annovalue = field.getDeclaredAnnotation(SensitiveFormat.class).value();
-				if (Objects.nonNull(value) & ObjectUtil.isNotEmpty(annovalue)) {
-					ReflectionUtils.setField(field, obj,
-							sharedInstance.convert(tuomin(value.toString(), annovalue), field.getType()));
-				}
-			});
+		    getFields(obj).stream().filter(annotationFields::contains).forEach(field -> {
+		        Object value = this.getField(field, obj);
+		        String annovalue = field.getDeclaredAnnotation(SensitiveFormat.class).value();
+		        if (Objects.nonNull(value) && annovalue != null && !annovalue.isEmpty()) {
+		            ReflectionUtils.setField(field, obj,
+		                    sharedInstance.convert(tuomin(value.toString(), annovalue), field.getType()));
+		        }
+		    });
 		});
 	}
 

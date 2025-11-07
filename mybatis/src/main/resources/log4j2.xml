@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- 控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        
+        <!-- 按日期滚动的文件输出 -->
+        <RollingFile name="RollingFileAppender"
+                     fileName="logs/app.log"
+                     filePattern="logs/app-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <!-- 基于时间的触发策略：每天滚动 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- 基于大小的触发策略：单个文件达到10MB时滚动 -->
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <!-- 滚动策略配置 -->
+            <DefaultRolloverStrategy>
+                <!-- 每天最多30个文件 -->
+                <Delete basePath="logs" maxDepth="1">
+                    <!-- 删除180天前的文件 -->
+                    <IfLastModified age="180d"/>
+                    <!-- 按文件名模式匹配 -->
+                    <IfFileName glob="app-*.log.gz"/>
+                </Delete>
+                <!-- 同一天内最多30个文件 -->
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    
+    <Loggers>
+        <!-- 根日志记录器，所有未被特定包覆盖到的info级别日志只输出到控制台 -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+        
+        <!-- 特定包的日志级别 -->
+        <Logger name="net.xzh" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFileAppender"/>
+        </Logger>
+    </Loggers>
+</Configuration>
