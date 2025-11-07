@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import net.xzh.service.UserService;
 
 /**
- * 用于生产service代理对象的工厂 此处我们只做入门，实现对AccountService的代理创建，同时加入事务
+ * 业务服务代理工厂，实现对AccountService的代理创建，同时加入事务
  * 
  * @author admin
  */

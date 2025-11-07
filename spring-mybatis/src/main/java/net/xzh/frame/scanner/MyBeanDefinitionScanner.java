@@ -1,4 +1,4 @@
-package net.xzh.spring;
+package net.xzh.frame.scanner;
 
 import java.util.Set;
 
@@ -8,6 +8,8 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
+
+import net.xzh.frame.factory.MyBatisFactoryBean;
 
 public class MyBeanDefinitionScanner extends ClassPathBeanDefinitionScanner{
 

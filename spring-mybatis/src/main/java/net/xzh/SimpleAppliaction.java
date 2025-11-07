@@ -7,12 +7,12 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
+import net.xzh.frame.factory.SimpleFactoryBean;
 import net.xzh.mapper.OrderMapper;
 import net.xzh.mapper.UserMapper;
 import net.xzh.service.UserService;
-import net.xzh.spring.SimpleFactoryBean;
 
-@ComponentScan("com.xuzhihao")
+@ComponentScan("net.xzh")
 public class SimpleAppliaction {
 	public static void main(String[] args) throws IOException {
 		try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext()) {
@@ -30,8 +30,9 @@ public class SimpleAppliaction {
 
 			applicationContext.refresh();
 
-			UserService userService = applicationContext.getBean("userService", UserService.class);
-			userService.save();
+//			UserService userService = applicationContext.getBean("userService", UserService.class);
+//			userService.save();
+			
 			UserService proxyUserService = (UserService)applicationContext.getBean("proxyUserService");
 			proxyUserService.save();
 		}

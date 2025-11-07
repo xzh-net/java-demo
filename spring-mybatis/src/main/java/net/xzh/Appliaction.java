@@ -10,8 +10,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import net.xzh.frame.scanner.MyScanner;
 import net.xzh.service.UserService;
-import net.xzh.spring.MyScanner;
 
 /**
  * spring整合mybatis

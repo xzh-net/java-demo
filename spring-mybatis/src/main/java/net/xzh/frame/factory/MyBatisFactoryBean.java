@@ -1,9 +1,14 @@
-package net.xzh.spring;
+package net.xzh.frame.factory;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.FactoryBean;
 
+/**
+ * 对标MyBatis的MapperFactoryBean
+ * @author xzh
+ *
+ */
 public class MyBatisFactoryBean implements FactoryBean<Object> {
 	private Class<?> mapperClass;
 

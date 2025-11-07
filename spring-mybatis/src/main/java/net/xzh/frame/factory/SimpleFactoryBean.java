@@ -1,4 +1,4 @@
-package net.xzh.spring;
+package net.xzh.frame.factory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -6,6 +6,11 @@ import java.lang.reflect.Proxy;
 
 import org.springframework.beans.factory.FactoryBean;
 
+/**
+ * 为接口创建动态代理
+ * @author xzh
+ *
+ */
 public class SimpleFactoryBean implements FactoryBean<Object> {
 	private Class<?> mapperClass;
 

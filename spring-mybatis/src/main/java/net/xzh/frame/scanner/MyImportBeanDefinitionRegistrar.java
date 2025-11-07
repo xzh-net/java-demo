@@ -1,4 +1,4 @@
-package net.xzh.spring;
+package net.xzh.frame.scanner;
 
 import java.io.IOException;
 import java.util.Map;
