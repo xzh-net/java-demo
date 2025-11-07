@@ -1,4 +1,4 @@
-## MyBatis + Log4j2配置
+# MyBatis + Log4j2配置
 
 ## 查询数据的三种方式
 
