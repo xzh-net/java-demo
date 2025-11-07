@@ -12,8 +12,7 @@
 
 ## 2. 源码
 
-
-
+- [Spring解决循环依赖](https://github.com/xzh-net/java-demo/tree/main/spring)
 
 
 ---
