@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的工作台</title>
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+
+<script>
+	function logout() {
+		location.href = "/";
+	}
+</script>
+</head>
+<body>
+	<table width="100%" cellpadding="10">
+		<!-- 欢迎信息区域 -->
+		<tr>
+			<td>
+				<div style="font-size: 20px; font-weight: bold;">
+					<span th:inline="text">[[${welcome}]]，[[${userName}]]</span>
+				</div>
+			</td>
+		</tr>
+		<!-- 时间显示区域 -->
+		<tr>
+			<td>
+				<div style="font-size: 16px;">[[${#dates.format(new
+					java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}]]</div>
+			</td>
+		</tr>
+		<!-- 退出按钮区域 -->
+		<tr>
+			<td>
+				<div>
+					<input type="submit" onclick="logout();" th:value="退出" />
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

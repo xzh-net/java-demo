@@ -1,8 +1,6 @@
 package net.xzh.config;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.context.annotation.Bean;
@@ -21,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.Controller;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -28,15 +27,17 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
-import net.xzh.annotation.UserParam;
+import net.xzh.annotation.Login;
+import net.xzh.controller.ApiRequestHandler;
+import net.xzh.controller.DashboardController;
+import net.xzh.domain.LoginUser;
 /**
  * 相当于springmvc.xml文件
- *
  */
 @Configuration
 @EnableWebMvc
 @ComponentScan("net.xzh.controller")
-public class WebConfig implements WebMvcConfigurer {
+public class SpringMvcConfig implements WebMvcConfigurer {
 
 	/**
 	 * thymeleaf模板引擎参数
@@ -123,7 +124,6 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController( "/" ).setViewName( "forward:/index" );
-//		registry.addViewController("/").setViewName("index");//视图名称直接跳转
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
 
@@ -132,22 +132,42 @@ public class WebConfig implements WebMvcConfigurer {
 		// TODO Auto-generated method stub
 		resolvers.add(new HandlerMethodArgumentResolver() {
 
+			// 1. 判断是否支持该参数
 			@Override
 			public boolean supportsParameter(MethodParameter parameter) {
-				return parameter.hasParameterAnnotation(UserParam.class);
+				return parameter.hasParameterAnnotation(Login.class);
 			}
 
+			// 2. 解析参数值
 			@Override
 			public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 					NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-				// 通过Reques.getParameter();
-				// request.getSession
-				// 从redis 里面获取....
-				Map<String, Object> hashMap = new HashMap<String, Object>();
-				hashMap.put("key", "自定义解析");
-				return hashMap;
+				//1、从session获取
+				//2、从header获取
+				LoginUser loginUser=new LoginUser();
+				loginUser.setUsername("admin");
+				loginUser.setPassword("123456");
+				return loginUser;
 			}
 		});
 	}
 
+	
+	/**
+	 * 这不是mvc的标准配置，仅仅演示实现Controller接口的类，如何暴漏Url
+	 * @return
+	 */
+	@Bean("/dashboard")
+    public Controller dashboard() {
+        return new DashboardController();
+    }
+	
+	/**
+	 * 这不是mvc的标准配置，仅仅演示实现Controller接口的类，如何暴漏Url
+	 * @return
+	 */
+	@Bean("/getUser")
+    public ApiRequestHandler getUser() {
+        return new ApiRequestHandler();
+    }
 }

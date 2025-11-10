@@ -5,15 +5,8 @@ import org.apache.catalina.core.StandardServer;
 import org.apache.catalina.startup.Tomcat;
 
 /**
- * TOMCAT8
+ * 便携式tomcat
  */
-//https://blog.csdn.net/ly91526188/article/details/80110149
-// https://www.cnblogs.com/lusaisai/p/13121668.html 原理
-// https://www.jianshu.com/p/3a3edbcd8f24 spi
-// https://blog.csdn.net/guanzhengyinqin/article/details/85255840 自定义参数处理器
-
-//1.DispatcherServlet->doService->doDispatch->getHandler->(从不同handlerMappings类型中获取URI)
-//2.getHandler->getHandlerInternal(AbstractUrlHandlerMapping/AbstractHandlerMethodMapping)
 
 public class Tomcat8 {
 
@@ -29,11 +22,15 @@ public class Tomcat8 {
 
 		StandardServer server = (StandardServer) tomcat.getServer();
 		AprLifecycleListener listener = new AprLifecycleListener();
+		//手动添加生命周期监听器
 		server.addLifecycleListener(listener);
 
+		// 有两种方式启动项目：1.war  2.文件夹
 		tomcat.addWebapp(CONTEXT_PATH, WEB_APP_PATH);
+		
 		tomcat.enableNaming();
 		tomcat.start();
+		//挂起
 		tomcat.getServer().await();
 
 	}

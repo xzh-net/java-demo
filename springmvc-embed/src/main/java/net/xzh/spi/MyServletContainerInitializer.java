@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-//@HandlesTypes web容器把所有实现了webInit接口的类扫描出来，放在集合set中(Set<Class<?>> set)
-//然后遍历set 把所有的实现类new出来，然后遍历执行所有方法。
+/**
+ * 模仿SpringServletContainerInitializer通过SPI机制扫描实现类
+ */
 @HandlesTypes(WebInit.class)
 public class MyServletContainerInitializer implements ServletContainerInitializer {
 	@Override

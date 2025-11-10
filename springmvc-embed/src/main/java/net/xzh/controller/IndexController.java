@@ -1,46 +1,47 @@
 package net.xzh.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import net.xzh.annotation.UserParam;
-import net.xzh.domain.UserEntity;
+import net.xzh.annotation.Login;
+import net.xzh.domain.LoginUser;
 
+/**
+ * 这是使用注解的Controller
+ * @author xzh
+ *
+ */
 @Controller
 public class IndexController {
 
-	@RequestMapping("/index")
-	public String index(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
-		map.put("name", "admin");
+	/**
+	 * 首页
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 */
+	@GetMapping("/index")
+	public String index(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+		modelMap.put("name", "admin");
 		return "index";
 	}
-
-	@RequestMapping("/index1")
-	public ModelAndView main() {
-		ModelAndView modelAndView = new ModelAndView("index");
-		modelAndView.addObject("name", "admin" + System.currentTimeMillis());
+	
+	/**
+	 * 我的桌面（仅仅是演示如何调用实现controller接口的类）
+	 */
+	@GetMapping("/dashboard2")
+	public ModelAndView dashboard2(HttpSession session, ModelAndView modelAndView,@Login LoginUser loginUser) {
+		modelAndView.addObject("welcome", "欢迎回来");
+		modelAndView.addObject("userName", loginUser.getUsername());
+		modelAndView.setViewName("dashboard");
 		return modelAndView;
 	}
-
-	@RequestMapping("/json1")
-	@ResponseBody
-	public UserEntity getUser() {
-		return new UserEntity("xcg", 18);
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/json2")
-	@ResponseBody // user 对象 Map
-	public Object test(String name, HttpServletRequest request, HttpServletResponse response, @UserParam Map map) {
-		map.put("name", request.getParameter("name"));
-		return map;
-	}
+	
 }
