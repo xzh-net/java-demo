@@ -1,4 +1,4 @@
-# SpringMVC零XML配置
+# SpringMvc零XML配置
 
 `Servlet 3.0` 规范定义了`javax.servlet.ServletContainerInitializer`接口，允许第三方库在 Web 容器启动时初始化代码。服务发现机制自动检测到实现类以后执行对应的`onStartup`的方法。
 

@@ -13,6 +13,7 @@
 - [Spring解决循环依赖](https://github.com/xzh-net/java-demo/tree/main/spring)
 - [MyBatis + Log4j2配置](https://github.com/xzh-net/java-demo/tree/main/mybatis)
 - [Spring集成Mybatis](https://github.com/xzh-net/java-demo/tree/main/spring-mybatis)
+- [SpringMvc零XML配置](https://github.com/xzh-net/java-demo/tree/main/springmvc-embed)
 
 ---
 
