@@ -11,7 +11,7 @@
 ## 2. 源码
 
 - [Spring解决循环依赖](https://github.com/xzh-net/java-demo/tree/main/spring)
-- [MyBatis + Log4j2配置](https://github.com/xzh-net/java-demo/tree/main/mybatis)
+- [MyBatis+Log4j2配置](https://github.com/xzh-net/java-demo/tree/main/mybatis)
 - [Spring集成Mybatis](https://github.com/xzh-net/java-demo/tree/main/spring-mybatis)
 - [SpringMvc零XML配置](https://github.com/xzh-net/java-demo/tree/main/springmvc-embed)
 
@@ -20,8 +20,9 @@
 
 ## 3. 插件
 
-- [Flume 发送日志数据至 Apache Pulsar](https://github.com/xzh-net/java-demo/tree/main/pulsar-flume-ng-sink)
+- [Flume发送日志数据至 Apache Pulsar](https://github.com/xzh-net/java-demo/tree/main/flume-ng-pulsar-sink)
 
+- [Flume自定义拦截器](https://github.com/xzh-net/java-demo/tree/main/flume-ng-plug)
 
 
 ---
