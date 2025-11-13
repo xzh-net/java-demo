@@ -20,7 +20,7 @@
 
 ## 3. 插件
 
-
+- [Flume 发送日志数据至 Apache Pulsar](https://github.com/xzh-net/java-demo/tree/main/pulsar-flume-ng-sink)
 
 
 
