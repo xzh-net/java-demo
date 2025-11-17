@@ -26,6 +26,8 @@
 
 - [Pulsar自定义Function和Flink调用](https://github.com/xzh-net/java-demo/tree/main/pulsar-flink)
 
+- [基于Flink+Kafka通用数据处理流程](https://github.com/xzh-net/java-demo/tree/main/flink-kafka)
+
 
 ---
 
