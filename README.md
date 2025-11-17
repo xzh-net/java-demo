@@ -1,4 +1,4 @@
-# Java 1.8
+# java-demo
 
 ## 1. 调试项目（IDEA）
 
@@ -14,6 +14,7 @@
 - [MyBatis+Log4j2配置](https://github.com/xzh-net/java-demo/tree/main/mybatis)
 - [Spring集成Mybatis](https://github.com/xzh-net/java-demo/tree/main/spring-mybatis)
 - [SpringMvc零XML配置](https://github.com/xzh-net/java-demo/tree/main/springmvc-embed)
+- [Netty](https://github.com/xzh-net/java-demo/tree/main/netty)
 
 ---
 
@@ -21,12 +22,11 @@
 ## 3. 插件
 
 - [Flume发送日志数据至 Apache Pulsar](https://github.com/xzh-net/java-demo/tree/main/flume-ng-pulsar-sink)
-
 - [Flume自定义拦截器](https://github.com/xzh-net/java-demo/tree/main/flume-ng-plug)
-
 - [Pulsar自定义Function和Flink调用](https://github.com/xzh-net/java-demo/tree/main/pulsar-flink)
-
 - [基于Flink+Kafka通用数据处理流程](https://github.com/xzh-net/java-demo/tree/main/flink-kafka)
+- [基于XMPP Openfire Smack开发](https://github.com/xzh-net/java-demo/tree/main/openfire)
+
 
 
 ---
