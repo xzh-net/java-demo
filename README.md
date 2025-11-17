@@ -24,5 +24,8 @@
 
 - [Flume自定义拦截器](https://github.com/xzh-net/java-demo/tree/main/flume-ng-plug)
 
+- [Pulsar自定义Function和Flink调用](https://github.com/xzh-net/java-demo/tree/main/pulsar-flink)
+
 
 ---
+
