@@ -15,6 +15,7 @@
 - [Spring集成Mybatis](https://github.com/xzh-net/java-demo/tree/main/spring-mybatis)
 - [SpringMvc零XML配置](https://github.com/xzh-net/java-demo/tree/main/springmvc-embed)
 - [Netty](https://github.com/xzh-net/java-demo/tree/main/netty)
+- [Dubbo](https://github.com/xzh-net/java-demo/tree/main/dubbo)
 
 ---
 
