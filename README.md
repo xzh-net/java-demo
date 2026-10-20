@@ -1,4 +1,4 @@
-# Java Demo
+# java-demo
 
 ## 1. 调试项目（IDEA）
 
