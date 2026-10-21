@@ -14,15 +14,15 @@
 
 - [Spring 解决循环依赖](spring) — Spring 容器三级缓存原理与循环依赖源码分析示例
 
-- [MyBatis + Log4j2 配置](mybatis) — MyBatis 整合 Log4j2 日志框架输出 SQL 执行日志
+- [MyBatis + Log4j2 配置](mybatis) — MyBatis 整合 Log4j2 输出 SQL 日志，并演示乐观锁、字段加解密脱敏、SQL 监控等自定义插件
 
-- [Spring 集成 MyBatis](spring-mybatis) — Spring 容器整合 MyBatis ORM 框架进行数据库操作
+- [Spring 集成 MyBatis](spring-mybatis) — 手写模拟 MyBatis-Spring 集成原理：自定义 FactoryBean、Mapper 扫描注册与 JDK 动态代理增强
 
 - [SpringMVC 零 XML 配置](springmvc-embed) — 基于 WebApplicationInitializer 实现纯注解零 XML 配置的 SpringMVC
 
 - [Netty 网络编程](netty) — Netty 核心组件与编解码器使用示例
 
-- [Dubbo RPC 远程调用](dubbo) — Apache Dubbo 服务提供者与消费者 RPC 调用示例
+- [Dubbo RPC 远程调用](dubbo) — 手写模拟 Dubbo 设计思想的简易 RPC 框架：动态代理 + HTTP/Netty 协议 + 本地/ZooKeeper 注册中心
 
 ---
 
@@ -30,9 +30,9 @@
 
 - [Flume 日志发送至 Pulsar](flume-ng-pulsar-sink) — 自定义 Flume Sink 将日志数据发送至 Apache Pulsar
 
-- [Flume 自定义拦截器](flume-ng-plug) — Flume 自定义 Interceptor 拦截器对日志数据进行清洗过滤
+- [Flume 自定义拦截器](flume-ng-plug) — Flume 自定义组件示例：拦截器按事件内容添加标记头，另含自定义 Source 与 Sink 实现
 
-- [Pulsar Function 与 Flink 调用](pulsar-flink) — Pulsar 自定义 Function 处理消息，并集成 Flink 消费
+- [Pulsar Function 与 Flink 调用](pulsar-flink) — Pulsar 自定义 Function 处理消息，通过 Flink Connector 实现与 Pulsar 的双向数据读写
 
 - [Flink + Kafka 数据处理](flink-kafka) — 基于 Flink + Kafka 的通用流式数据处理流程示例
 

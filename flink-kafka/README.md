@@ -1,4 +1,4 @@
-# 基于Flink+Kafka通用数据处理流程
+# Flink + Kafka 数据处理
 
 向`source-text`主题发送消息，Flink监听消息处理后转发到`target-words`主题
 

@@ -1,4 +1,5 @@
-# smack4.4.5
+# XMPP Openfire Smack 开发
+> 基于 Smack 4.4.5
 
 1. 登录
 2. 发送消息

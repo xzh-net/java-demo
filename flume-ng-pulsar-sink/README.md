@@ -1,4 +1,4 @@
-# Flume 发送日志数据至 Apache Pulsar
+# Flume 日志发送至 Pulsar
 
 ## 环境安装
 
