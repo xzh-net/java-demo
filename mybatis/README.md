@@ -1,4 +1,4 @@
-# MyBatis + Log4j2 配置
+# MyBatis 配置与自定义插件
 
 ## 查询数据的三种方式
 

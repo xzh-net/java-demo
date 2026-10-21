@@ -1,4 +1,4 @@
-# Dubbo RPC 远程调用
+# 手写 RPC 框架（模拟 Dubbo）
 
 ## 项目结构
 
